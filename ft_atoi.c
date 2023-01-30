@@ -22,28 +22,27 @@ static int	ft_isspace(int c)
 
 int	ft_atoi(const char *str)
 {
-	int			i;
+	size_t		i;
 	int			sign;
 	long int	sum;
 
-	while (ft_isspace(*str))
-		str++;
+	i = 0;
+	while (ft_isspace(str[i]))
+		i++;
 	sign = 1;
-	if (*str == '-' || *str == '+')
-		if (*str++ == '-')
-			sign *= -1;
-	sum = 0;
-	i = 1;
-	while (ft_isdigit(*str))
+	if (str[i] == '-' || str[i] == '+')
 	{
-		sum = sum * 10 + (*str - '0');
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	sum = 0;
+	while (ft_isdigit(str[i]))
+	{
+		sum = sum * 10 + (str[i] - '0');
 		if (sum < 0)
-		{
-			if (sign != -1)
-				return (-1);
-			return (0);
-		}
-		str++;
+			return ((sign < 0) * -1);
+		i++;
 	}
 	return (sum * sign);
 }

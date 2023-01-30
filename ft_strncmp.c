@@ -14,15 +14,20 @@
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
+	size_t	i;
+
+	i = 0;
 	if (n)
 	{
-		while (*s1 && *s2 && *s1 == *s2 && n - 1)
-		{
-			s1++;
-			s2++;
-			n--;
-		}
-		return ((unsigned char)*s1 - (unsigned char)*s2);
+		while (s1[i] && s2[i] && s1[i] == s2[i] && i < n - 1)
+			i++;
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 	}
 	return (0);
 }
+/**
+Pay attention that the comparison is done using unsigned char
+It doesn't really matter when checking for equality
+because it is going to be the same either way.
+But make sure to convert to unsigned char in the difference.
+*/

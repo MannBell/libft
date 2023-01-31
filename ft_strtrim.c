@@ -14,37 +14,38 @@
 
 static int	ft_matchset(char c, char const *set)
 {
-	while (*set)
-		if (*set++ == c)
+	size_t	i;
+
+	i = 0;
+	while (set[i])
+	{
+		if (set[i] == c)
 			return (1);
+		i++;
+	}
 	return (0);
 }
 
 static char	*ft_trimmer(char const *s1, char const *set)
 {	
-	const char	*first_stop;
-	char		*trimmed;
-	size_t		i;
-	size_t		total_size;
+	size_t	i;
+	size_t	j;
+	char	*trimmed;
 
-	total_size = ft_strlen(s1) + 1;
 	i = 0;
-	while (*s1 && ft_matchset(*s1, set) && ++i)
-		s1++;
-	first_stop = s1;
-	while (*s1)
-		s1++;
-	while (--s1 >= first_stop && ft_matchset(*s1, set))
-		++i;
-	total_size -= i;
-	trimmed = ft_calloc(total_size, sizeof(char));
+	while (s1[i] && ft_matchset(s1[i], set))
+		i++;
+	j = 0;
+	while (s1[i + j])
+		j++;
+	while (j && j - 1 >= 0 && ft_matchset(s1[i + (j - 1)], set))
+		j--;
+	trimmed = ft_calloc(j + 1, sizeof(char));
 	if (!trimmed)
 		return (NULL);
-	i = 0;
-	while (total_size-- - 1 && ++i)
-		*trimmed++ = *first_stop++;
-	*trimmed = 0;
-	return (trimmed - i);
+	while (j && j--)
+		trimmed[j] = s1[i + j];
+	return (trimmed);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)

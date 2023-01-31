@@ -15,15 +15,17 @@
 static size_t	ft_count(char const *s, char c)
 {
 	size_t	count;
+	size_t	i;
 
+	i = 0;
 	count = 0;
-	while (*s)
+	while (s[i])
 	{
-		if (*s != c && ++count)
-			while (*s && *s != c)
-				++s;
-		while (*s && *s == c)
-			++s;
+		if (s[i] != c && ++count)
+			while (s[i] && s[i] != c)
+				i++;
+		while (s[i] && s[i] == c)
+			i++;
 	}
 	return (count);
 }
@@ -31,47 +33,50 @@ static size_t	ft_count(char const *s, char c)
 static char	**ft_allocater(char const *s, char c, char **strs)
 {
 	size_t	count;
-	char	**ostrs;
+	size_t	i;
+	size_t	j;
 
-	ostrs = strs;
-	while (*s)
+	i = 0;
+	j = 0;
+	while (s[i])
 	{
 		count = 0;
-		if (*s != c)
+		if (s[i] != c)
 		{
-			while (*s && *s != c && ++count)
-				++s;
-			*strs = ft_calloc(count + 1, sizeof(char));
-			if (!*strs)
+			while (s[i] && s[i] != c && ++count)
+				i++;
+			strs[j] = ft_calloc(count + 1, sizeof(char));
+			if (!strs[j])
 				return (NULL);
-			strs++;
+			j++;
 		}
-		while (*s && *s == c)
-			++s;
+		while (s[i] && s[i] == c)
+			i++;
 	}
-	return (ostrs);
+	return (strs);
 }
 
 static char	**ft_filler(char const *s, char c, char **strs)
 {
-	size_t	count;
-	char	**ostrs;
+	size_t	i;
+	size_t	j;
+	size_t	k;
 
-	ostrs = strs;
-	while (*s && *strs)
+	i = 0;
+	j = 0;
+	while (s[i] && strs[j])
 	{
-		if (*s != c)
+		if (s[i] != c)
 		{
-			count = 0;
-			while (*s && *s != c && ++count)
-				*((*strs)++) = *s++;
-			*strs -= count;
-			strs++;
+			k = 0;
+			while (s[i] && s[i] != c)
+				strs[j][k++] = s[i++];
+			j++;
 		}
-		while (*s && *s == c)
-			++s;
+		while (s[i] && s[i] == c)
+			i++;
 	}
-	return (ostrs);
+	return (strs);
 }
 
 char	**ft_split(char const *s, char c)

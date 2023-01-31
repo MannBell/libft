@@ -12,26 +12,25 @@
 
 #include "libft.h"
 
-static char	*ft_filler(char *nums, int num_len, char sign)
+static char	*ft_filler(char *nums, int num_len, int sign)
 {
+	size_t	i;
 	char	*str;
-	char	offset;
 
 	str = ft_calloc(sign + num_len + 1, sizeof(char));
 	if (!str)
 		return (NULL);
+	i = 0;
 	if (sign)
-		*str++ = '-';
-	offset = num_len;
+		str[i++] = '-';
 	while (--num_len >= 0)
-		*str++ = nums[num_len];
-	*str = 0;
-	return (str - offset - sign);
+		str[i++] = nums[num_len];
+	return (str);
 }
 
 char	*ft_itoa(int n)
 {
-	char		sign;
+	int			sign;
 	char		nums[10];
 	char		*str;
 	int			i;
@@ -44,7 +43,7 @@ char	*ft_itoa(int n)
 		str = ft_calloc(2, sizeof(char));
 		if (!str)
 			return (NULL);
-		*str = '0';
+		str[0] = '0';
 		return (str);
 	}
 	i = 0;

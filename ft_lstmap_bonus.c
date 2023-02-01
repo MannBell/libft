@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelayad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abelayad <abelayad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 00:30:22 by abelayad          #+#    #+#             */
-/*   Updated: 2022/10/22 00:30:23 by abelayad         ###   ########.fr       */
+/*   Updated: 2023/02/01 23:54:31 by abelayad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,23 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*head;
 	t_list	*nlst;
+	void	*content;
 
 	if (!lst || !f || !del)
 		return (NULL);
-	head = ft_lstnew(f(lst -> content));
+	content = f(lst -> content);
+	head = ft_lstnew(content);
 	nlst = head;
 	if (!nlst)
-		ft_handle_clr(&head, del);
+		return (del(content), ft_handle_clr(&head, del), NULL);
 	lst = lst -> next;
 	while (lst)
 	{
-		nlst -> next = ft_lstnew(f(lst -> content));
+		content = f(lst -> content);
+		nlst -> next = ft_lstnew(content);
 		nlst = nlst -> next;
 		if (!nlst)
-			ft_handle_clr(&head, del);
+			return (del(content), ft_handle_clr(&head, del), NULL);
 		lst = lst -> next;
 	}
 	nlst -> next = NULL;

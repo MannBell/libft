@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_double_ptr_free.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelayad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abelayad <abelayad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 00:33:23 by abelayad          #+#    #+#             */
-/*   Updated: 2022/10/22 00:33:26 by abelayad         ###   ########.fr       */
+/*   Created: 2023/02/01 22:49:41 by abelayad          #+#    #+#             */
+/*   Updated: 2023/02/01 22:53:39 by abelayad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+void	ft_double_ptr_free(void **tofree)
 {
-	t_list	*new_node;
+	size_t	i;
 
-	new_node = ft_calloc(1, sizeof(t_list));
-	if (!new_node)
-		return (NULL);
-	new_node -> content = content;
-	new_node -> next = NULL;
-	return (new_node);
+	i = 0;
+	while (tofree[i])
+		free(tofree[i++]);
+	free(tofree);
 }

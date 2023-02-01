@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelayad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abelayad <abelayad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:05:06 by abelayad          #+#    #+#             */
-/*   Updated: 2022/10/23 00:34:14 by abelayad         ###   ########.fr       */
+/*   Updated: 2023/02/01 23:05:20 by abelayad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ char	**ft_split(char const *s, char c)
 {
 	size_t		count;
 	char		**strs;
+	char		**tofree;
 
 	if (!s)
 		return (NULL);
@@ -92,5 +93,9 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	if (!count)
 		return (strs);
-	return (ft_filler(s, c, ft_allocater(s, c, strs)));
+	tofree = strs;
+	strs = ft_allocater(s, c, strs);
+	if (!strs)
+		return (ft_double_ptr_free((void **)tofree), NULL);
+	return (ft_filler(s, c, strs));
 }

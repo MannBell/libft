@@ -41,7 +41,7 @@ int	ft_atoi(const char *str)
 	{
 		sum = sum * 10 + (str[i] - '0');
 		if (sum < 0)
-			return ((sign < 0) * -1);
+			return ((sign != -1) * -1);
 		i++;
 	}
 	return (sum * sign);

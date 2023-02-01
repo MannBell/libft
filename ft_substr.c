@@ -15,23 +15,25 @@
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*substr;
-	char	*substr_strt;
 	size_t	slen;
-	size_t	alloc_len;
+	size_t	i;
 
 	if (!s)
 		return (NULL);
 	slen = ft_strlen(s);
-	if (start >= slen)
+	if (!slen || start > slen - 1)
 		return (ft_strdup(""));
-	alloc_len = len;
-	if (len >= slen)
-		alloc_len = slen;
-	substr = ft_calloc((alloc_len + 1), sizeof(char));
+	i = 0;
+	while (s[start + i] && i + 1 <= len)
+		i++;
+	substr = ft_calloc((i + 1), sizeof(char));
 	if (!substr)
 		return (NULL);
-	substr_strt = substr;
-	while (len-- && *(s + start))
-		*substr++ = *(s + start++);
-	return (substr_strt);
+	i = 0;
+	while (i < len && s[start + i])
+	{
+		substr[i] = s[start + i];
+		i++;
+	}
+	return (substr);
 }

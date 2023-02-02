@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelayad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abelayad <abelayad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 00:45:11 by abelayad          #+#    #+#             */
-/*   Updated: 2022/10/23 00:37:57 by abelayad         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:08:49 by abelayad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*ft_trimmer(char const *s1, char const *set)
 	j = 0;
 	while (s1[i + j])
 		j++;
-	while (j && j - 1 >= 0 && ft_matchset(s1[i + (j - 1)], set))
+	while (j && ft_matchset(s1[i + (j - 1)], set))
 		j--;
 	trimmed = ft_calloc(j + 1, sizeof(char));
 	if (!trimmed)
